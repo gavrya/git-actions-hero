@@ -1,0 +1,32 @@
+name: Manual Trigger with Git Tags
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Git tag to use for the workflow'
+        required: true
+        default: 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Git Tag
+        run: git tag -l
+        id: git_tags
+
+      - name: Select Git Tag
+        id: tag_selector
+        run: echo "::set-output name=selected_tag::${{ github.event.inputs.tag }}"
+
+      - name: Run Your Build Steps
+        run: |
+          selected_tag=${{ steps.tag_selector.outputs.selected_tag }}
+          echo "Selected Git Tag: $selected_tag"
+          # Add your build steps here using the selected Git tag
+
