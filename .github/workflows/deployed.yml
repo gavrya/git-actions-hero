@@ -1,0 +1,16 @@
+name: Deployed
+
+on:
+  deployment:
+    types:
+      - created
+      - updated
+      - deleted
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: echo 'Deployed'
