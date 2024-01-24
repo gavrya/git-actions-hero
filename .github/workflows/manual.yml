@@ -1,15 +1,14 @@
 name: Deployment Workflow
 
 on:
-  deployment:
-    types:
-      - created
-      - updated
-      - deleted
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: Develop
+      url: https://google.com
 
     steps:
       - name: Install dependencies
